@@ -1,28 +1,31 @@
 # coding=UTF8
 
-# 004
-# A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
-# Find the largest palindrome made from the product of two 3-digit numbers.
+# 005
+# 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+# What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 
 import math
 
 def candidateGenerator():
-	y = 999
-	while y > 99:
-		x = 999
-		while x > 99:
-			yield (x*y)
-			x=x-1
-		y=y-1
-
-def isPalindrome(x):
-	s = str(x)
-	l = int(math.floor(len(s)/2))
-	start = int(s[:l])
-	end   = int(s[-l:][::-1])
-	return start==end
+	i=2520
+	while True:
+		yield i
+		i+=20
 	
+def checkCandidate(c):	
+	n=20
+	while n > 10:
+		if c%n!=0:
+			#print "Fail: %s %s" % (c,n,)
+			return False
+		n-=1
+	return True	
+		
 		
 if __name__ == "__main__":	
-	mx = reduce(max,[c for c in candidateGenerator() if isPalindrome(c)==True])
-	print "MX = %s" % (mx,)
+	for c in candidateGenerator():
+		if checkCandidate(c):
+			print c
+			break
+	
+	
